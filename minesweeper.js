@@ -10,7 +10,7 @@ class Game {
       console.log('The bad news: you unwittingly stepped on it, causing it to detonate.');
       console.log('G a m e  O v e r');
       this._board.print();
-    } else if (!this._board.hasSafeTiles()) {
+    } else if (this._board.hasSafeTiles() != true) {
       console.log('The good news: you figured out where all the bombs are!');
       console.log('The bad news: you cleared the entire minefield, and now must to create a new one.');
       console.log('G a m e  W i n ! ! !');
@@ -30,7 +30,7 @@ class Board {
 
     this._numberOfTiles = numberOfRows * numberOfColumns;
     this._playerBoard = Board.generatePlayerBoard(numberOfRows, numberOfColumns);
-    this._bombBoard = Board.generatePlayerBoard(numberOfRows, numberOfColumns, numberOfBombs);
+    this._bombBoard = Board.generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs);
   }
 
   get playerBoard() {
@@ -79,7 +79,7 @@ class Board {
   }
 
   hasSafeTiles() {
-    return this.numberOfTiles <= this.numberOfBombs;
+    return this.numberOfTiles - this.numberOfBombs >= 0;
   }
 
   print() {
